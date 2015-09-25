@@ -31,7 +31,7 @@ public class SplanActivity extends BaseActivity {
                     }
                 });
             }
-        }, 3000);
+        }, 2000);
     }
 
 

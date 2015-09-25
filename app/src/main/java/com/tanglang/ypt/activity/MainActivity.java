@@ -12,7 +12,11 @@ import com.tanglang.ypt.fragment.HomeFragment;
 import com.tanglang.ypt.fragment.MineFragment;
 import com.tanglang.ypt.fragment.NearFragment;
 import com.tanglang.ypt.fragment.TypeFragment;
+import com.tanglang.ypt.utils.LogUtils;
 
+/**
+ *
+ */
 public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
 
     private RadioGroup rgTabber;
@@ -52,9 +56,9 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
      */
     private void changeFragment(int index) {
         Fragment homeFragment = fm.findFragmentByTag(TAB_NAMES[0]);
-        Fragment typeFragment = fm.findFragmentByTag(TAB_NAMES[0]);
-        Fragment nearFragment = fm.findFragmentByTag(TAB_NAMES[1]);
-        Fragment mineFragment = fm.findFragmentByTag(TAB_NAMES[2]);
+        Fragment typeFragment = fm.findFragmentByTag(TAB_NAMES[1]);
+        Fragment nearFragment = fm.findFragmentByTag(TAB_NAMES[2]);
+        Fragment mineFragment = fm.findFragmentByTag(TAB_NAMES[3]);
 
         FragmentTransaction ft = fm.beginTransaction();
         if (homeFragment != null) {
@@ -103,8 +107,24 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
                 }
                 break;
         }
-
         ft.commitAllowingStateLoss();
+    }
 
+    long lastBackTime = 0;
+
+    /**
+     * 重写返回按键事件
+     */
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        long currentBackTime = System.currentTimeMillis();
+        if (lastBackTime == 0 || currentBackTime - lastBackTime > 1000) {
+            LogUtils.showToast(this, "再按一次退出");
+            lastBackTime = currentBackTime;
+        } else {
+            lastBackTime = 0;
+            app.exitApp();
+        }
     }
 }

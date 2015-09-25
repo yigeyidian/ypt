@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@drawable/topview_back"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/topsearch_bt_menu"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="8dp"
+        android:background="@android:color/transparent"
+        android:drawableTop="@mipmap/ic_home_app_icon"
+        android:gravity="center"
+        android:text="药品通"
+        android:textColor="#ffffff"
+        android:textSize="10sp" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:background="@drawable/rect_gray"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="10dp"
+            android:src="@mipmap/ic_search_grey" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="输入药品名或者疾病名"
+            android:textColor="@color/fontColor" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/topsearch_bt_scan"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="8dp"
+        android:background="@android:color/transparent"
+        android:drawableTop="@drawable/ic_scan_selector"
+        android:gravity="center"
+        android:text="扫一扫"
+        android:textColor="#ffffff"
+        android:textSize="10sp" />
+
+</LinearLayout>

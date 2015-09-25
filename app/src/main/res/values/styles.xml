@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar">
         <!-- Customize your theme here. -->
     </style>
 
@@ -12,7 +12,19 @@
         <item name="android:button">@null</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">5dp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/tab_item_color</item>
+    </style>
+
+    <style name="HomeButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/fontColor</item>
+        <item name="android:background">#ffffff</item>
     </style>
 
 </resources>
