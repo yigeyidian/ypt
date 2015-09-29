@@ -38,7 +38,6 @@ public class MainActivity extends BaseActivity implements RadioGroup.OnCheckedCh
         rgTabber.setOnCheckedChangeListener(this);
 
         fm = getSupportFragmentManager();
-        //changeFragment(0);
         ((RadioButton) rgTabber.getChildAt(0)).setChecked(true);
     }
 

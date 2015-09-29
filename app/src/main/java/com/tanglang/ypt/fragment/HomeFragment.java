@@ -1,20 +1,19 @@
 package com.tanglang.ypt.fragment;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -27,17 +26,24 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.tanglang.ypt.R;
+import com.tanglang.ypt.activity.BannerActivity;
+import com.tanglang.ypt.activity.BrandActivity;
+import com.tanglang.ypt.activity.FindDrugActivity;
 import com.tanglang.ypt.adapter.BannerImagePagerAdapter;
-import com.tanglang.ypt.adapter.HomeCompanyAdapter;
-import com.tanglang.ypt.adapter.TypeGridAdapter;
-import com.tanglang.ypt.bean.Company;
+import com.tanglang.ypt.adapter.BrandGridViewAdapter;
+import com.tanglang.ypt.adapter.DrugGridAdapter;
+import com.tanglang.ypt.bean.Brand;
+import com.tanglang.ypt.bean.Drug;
 import com.tanglang.ypt.bean.HomeLayoutBean;
 import com.tanglang.ypt.utils.BitmapHelper;
 import com.tanglang.ypt.utils.CacheUtils;
 import com.tanglang.ypt.utils.LogUtils;
+import com.tanglang.ypt.utils.UiUtils;
 import com.tanglang.ypt.utils.UrlUtils;
 import com.tanglang.ypt.view.HomeGridView;
+import com.tanglang.ypt.view.TopSearchView;
 import com.tanglang.ypt.view.YButton;
+import com.tanglang.ypt.view.YPScrollView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,12 +58,12 @@ import java.util.TimerTask;
 /**
  * 首页
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements View.OnClickListener {
     private FrameLayout mFrameLayout;
     private View loadingView;
 
     private HomeLayoutBean mLayoutData;
-    private List<Company> companyList;
+    private ArrayList<Brand> brandList;
     private RadioGroup radioGroup;
     private View loadingFailView;
     private View loadSuccesView;
@@ -81,12 +87,14 @@ public class HomeFragment extends Fragment {
     private ImageView ivLeftBanner;
     private ImageView ivRightBanner;
     private LinearLayout typeView;
+    private TopSearchView topSearchView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         mFrameLayout = (FrameLayout) view.findViewById(R.id.home_content);
+        topSearchView = (TopSearchView) view.findViewById(R.id.home_topmenu);
 
         getLayoutData();
         getBrandData();
@@ -167,12 +175,7 @@ public class HomeFragment extends Fragment {
             loadingFailView = View.inflate(getContext(), R.layout.loadingfail_view, null);
             Button btReLoad = (Button) loadingFailView.findViewById(R.id.reloading);
 
-            btReLoad.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    getLayoutData();
-                }
-            });
+            btReLoad.setOnClickListener(this);
         }
 
         changeView(loadingFailView);
@@ -188,15 +191,15 @@ public class HomeFragment extends Fragment {
             JSONObject dataJson = new JSONObject(data);
             if (dataJson.optString("status").equals("Ok")) {
                 JSONArray jsonArray = dataJson.optJSONArray("results");
-                companyList = new ArrayList<>();
+                brandList = new ArrayList<>();
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    Company company = new Company();
+                    Brand company = new Brand();
                     company.namecn = jsonArray.optJSONObject(i).optString("namecn");
                     company.titleimg = jsonArray.optJSONObject(i).optString("titleimg");
-                    companyList.add(company);
+                    brandList.add(company);
                 }
                 CacheUtils.saveCache(getActivity(), UrlUtils.BRAND_PATH, data);
-                initCompany();
+                initBrand();
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -229,16 +232,34 @@ public class HomeFragment extends Fragment {
 
         loadSuccesView = View.inflate(getContext(), R.layout.homeloaded_view, null);
 
-        bannerViewPager = (ViewPager) loadSuccesView.findViewById(R.id.homeloaded_vp_banner);
-        radioGroup = (RadioGroup) loadSuccesView.findViewById(R.id.homeloaded_rg);
-        ivLeftBanner = (ImageView) loadSuccesView.findViewById(R.id.homeloaded_iv_left);
-        ivRightBanner = (ImageView) loadSuccesView.findViewById(R.id.homeloaded_iv_right);
+        Button btScan = (Button) loadSuccesView.findViewById(R.id.homeloaded_bt_scan);
+        Button btDoctor = (Button) loadSuccesView.findViewById(R.id.homeloaded_bt_doctor);
+        Button btRemind = (Button) loadSuccesView.findViewById(R.id.homeloaded_bt_remind);
+        Button btFind = (Button) loadSuccesView.findViewById(R.id.homeloaded_bt_find);
+        btScan.setOnClickListener(this);
+        btDoctor.setOnClickListener(this);
+        btRemind.setOnClickListener(this);
+        btFind.setOnClickListener(this);
+
+
         companyView = (HomeGridView) loadSuccesView.findViewById(R.id.homeloaded_rv_company);
         typeView = (LinearLayout) loadSuccesView.findViewById(R.id.homeloaded_lv_drug);
+        YPScrollView scrollView = (YPScrollView) loadSuccesView.findViewById(R.id.homeloaded_sv);
+        scrollView.setScrollViewListener(new YPScrollView.ScrollViewListener() {
+            @Override
+            public void onScrollChanged(YPScrollView scrollView, int x, int y, int oldx, int oldy) {
+                if (y > UiUtils.dip2px(200)) {
+                    topSearchView.setBackgroundColor(Color.parseColor("#aa307FE2"));
+                } else {
+                    topSearchView.setBackgroundResource(R.drawable.topview_back);
+                }
+            }
+        });
+        topSearchView.setBackgroundResource(R.drawable.topview_back);
 
         initBanner();
         initType();
-        initCompany();
+        initBrand();
 
         startTimer();
         changeView(loadSuccesView);
@@ -249,17 +270,21 @@ public class HomeFragment extends Fragment {
         typeView.addView(createType(mLayoutData.list.types.get(1).type_name, mLayoutData.list.types.get(1).drug_list));
     }
 
-    private View createType(String type, List<HomeLayoutBean.Drug> data) {
+    private View createType(String type, List<Drug> data) {
         View typeView = View.inflate(getActivity(), R.layout.hometype_view, null);
         YButton button = (YButton) typeView.findViewById(R.id.type_button);
         HomeGridView gridView = (HomeGridView) typeView.findViewById(R.id.tyoe_gridview);
         button.setText(type);
-        TypeGridAdapter typeGridAdapter = new TypeGridAdapter(getActivity(), data);
+        DrugGridAdapter typeGridAdapter = new DrugGridAdapter(getActivity(), data);
         gridView.setAdapter(typeGridAdapter);
         return typeView;
     }
 
     private void initBanner() {
+        bannerViewPager = (ViewPager) loadSuccesView.findViewById(R.id.homeloaded_vp_banner);
+        radioGroup = (RadioGroup) loadSuccesView.findViewById(R.id.homeloaded_rg);
+        ivLeftBanner = (ImageView) loadSuccesView.findViewById(R.id.homeloaded_iv_left);
+        ivRightBanner = (ImageView) loadSuccesView.findViewById(R.id.homeloaded_iv_right);
         banners = new ArrayList<>();
         banners1 = new ArrayList<>();
         for (int i = 0; i < mLayoutData.list.banner.size(); i++) {
@@ -277,21 +302,27 @@ public class HomeFragment extends Fragment {
                 ((RadioButton) (radioGroup.getChildAt(position))).setChecked(true);
             }
         });
+
         ((RadioButton) (radioGroup.getChildAt(0))).setChecked(true);
 
         BitmapHelper.getBitmapUtils(getContext()).display(ivLeftBanner, banners1.get(0).image_url);
         BitmapHelper.getBitmapUtils(getContext()).display(ivRightBanner, banners1.get(1).image_url);
+
+        ivLeftBanner.setOnClickListener(this);
+        ivRightBanner.setOnClickListener(this);
     }
 
-    private void initCompany() {
-        if (companyView != null && companyList != null && companyList.size() > 0) {
-            List<Company> homeCompanies;
-            if (companyList.size() > 6) {
-                homeCompanies = companyList.subList(0, 6);
+    private void initBrand() {
+        YButton btBrand = (YButton) loadSuccesView.findViewById(R.id.homeloaded_bt_brand);
+        btBrand.setOnClickListener(this);
+        if (companyView != null && brandList != null && brandList.size() > 0) {
+            List<Brand> homeCompanies;
+            if (brandList.size() > 6) {
+                homeCompanies = brandList.subList(0, 6);
             } else {
-                homeCompanies = companyList;
+                homeCompanies = brandList;
             }
-            HomeCompanyAdapter companyAdapter = new HomeCompanyAdapter(getContext(), homeCompanies);
+            BrandGridViewAdapter companyAdapter = new BrandGridViewAdapter(getContext(), homeCompanies);
             companyView.setAdapter(companyAdapter);
         }
     }
@@ -307,5 +338,47 @@ public class HomeFragment extends Fragment {
                 handler.sendEmptyMessage(TIMER_WHAT);
             }
         }, 0, 5000);
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent;
+        switch (v.getId()) {
+            case R.id.homeloaded_iv_left:
+                intent = new Intent(getActivity(), BannerActivity.class);
+                intent.putExtra("banner", banners1.get(0));
+                startActivity(intent);
+                break;
+            case R.id.homeloaded_iv_right:
+                intent = new Intent(getActivity(), BannerActivity.class);
+                intent.putExtra("banner", banners1.get(1));
+                startActivity(intent);
+                break;
+
+            case R.id.reloading:
+                getLayoutData();
+                break;
+            case R.id.homeloaded_bt_brand:
+                intent = new Intent(getActivity(), BrandActivity.class);
+                intent.putExtra("brands", brandList);
+                startActivity(intent);
+                break;
+
+            case R.id.homeloaded_bt_scan:
+                LogUtils.showToast(getActivity(), "扫码找药");
+                break;
+            case R.id.homeloaded_bt_doctor:
+                LogUtils.showToast(getActivity(), "咨询医生");
+                break;
+            case R.id.homeloaded_bt_remind:
+                LogUtils.showToast(getActivity(), "服药提醒");
+                break;
+            case R.id.homeloaded_bt_find:
+                //LogUtils.showToast(getActivity(), "对症找药");
+                intent = new Intent(getActivity(), FindDrugActivity.class);
+                startActivity(intent);
+                break;
+
+        }
     }
 }

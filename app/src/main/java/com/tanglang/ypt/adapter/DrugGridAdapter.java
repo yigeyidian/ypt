@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.lidroid.xutils.BitmapUtils;
 import com.tanglang.ypt.R;
-import com.tanglang.ypt.bean.HomeLayoutBean;
+import com.tanglang.ypt.bean.Drug;
 import com.tanglang.ypt.utils.BitmapHelper;
 
 import java.util.List;
@@ -19,12 +19,12 @@ import java.util.List;
 /**
  * Author： Administrator
  */
-public class TypeGridAdapter extends BaseAdapter {
+public class DrugGridAdapter extends BaseAdapter {
     private Context mContext;
-    private List<HomeLayoutBean.Drug> mData;
+    private List<Drug> mData;
     private BitmapUtils bitmapUtils;
 
-    public TypeGridAdapter(Context context, List<HomeLayoutBean.Drug> data) {
+    public DrugGridAdapter(Context context, List<Drug> data) {
         this.mContext = context;
         this.mData = data;
         bitmapUtils = BitmapHelper.getBitmapUtils(context);
@@ -49,7 +49,7 @@ public class TypeGridAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = View.inflate(mContext, R.layout.drug_view, null);
+            convertView = View.inflate(mContext, R.layout.drug_item, null);
             viewHolder = new ViewHolder();
             viewHolder.ivImage = (ImageView) convertView.findViewById(R.id.drug_image);
             viewHolder.tvText = (TextView) convertView.findViewById(R.id.drug_name);
@@ -59,7 +59,7 @@ public class TypeGridAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        HomeLayoutBean.Drug drug = mData.get(position);
+        Drug drug = mData.get(position);
         bitmapUtils.display(viewHolder.ivImage, drug.TitleImg);
         if (!TextUtils.isEmpty(drug.NameCN)) {
             viewHolder.tvText.setText(drug.NameCN);

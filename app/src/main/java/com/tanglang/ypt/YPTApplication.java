@@ -2,12 +2,14 @@ package com.tanglang.ypt;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class YPTApplication extends Application {
+    private static YPTApplication application;
 
     private List<Activity> activities;
 
@@ -16,6 +18,7 @@ public class YPTApplication extends Application {
         super.onCreate();
 
         activities = new ArrayList<>();
+        application = this;
     }
 
     public void addActivity(Activity activity) {
@@ -35,5 +38,9 @@ public class YPTApplication extends Application {
         }
         android.os.Process.killProcess(android.os.Process.myPid());//获取PID
         System.exit(0);
+    }
+
+    public static Context getApplication() {
+        return application;
     }
 }

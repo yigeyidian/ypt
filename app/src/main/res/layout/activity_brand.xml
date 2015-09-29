@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/titleBackColor"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/brand_iv_back"
+            style="@style/BackImageViewStyle" />
+
+        <TextView
+            style="@style/TitleTextViewStyle"
+            android:text="品牌列表" />
+
+    </RelativeLayout>
+
+    <com.tanglang.ypt.view.HomeGridView
+        android:id="@+id/brand_gv"
+        style="@style/BrandGridViewStyle" />
+
+</LinearLayout>

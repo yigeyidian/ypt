@@ -5,6 +5,7 @@
 
     <ProgressBar
         android:id="@+id/loading_pb"
+        style="@style/myProgressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" />
@@ -15,7 +16,7 @@
         android:layout_below="@id/loading_pb"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="5dp"
-        android:textColor="@color/fontColor"
-        android:text="正在加载..." />
+        android:text="正在加载..."
+        android:textColor="@color/fontColor" />
 
 </RelativeLayout>

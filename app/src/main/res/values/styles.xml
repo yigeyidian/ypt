@@ -27,4 +27,47 @@
         <item name="android:background">#ffffff</item>
     </style>
 
+    <style name="myProgressBarStyleLarge">
+        　　
+        <item name="android:indeterminateDrawable">@drawable/progress_image</item>
+        　　
+        <item name="android:minWidth">48dp</item>
+        　　
+        <item name="android:maxWidth">48dp</item>
+        　　
+        <item name="android:minHeight">48dp</item>
+        　　
+        <item name="android:maxHeight">48dp</item>
+    </style>
+
+    <style name="GridViewStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scrollbars">none</item>
+    </style>
+
+    <style name="BrandGridViewStyle" parent="GridViewStyle">
+        <item name="android:numColumns">3</item>
+    </style>
+
+    <style name="DrugGridViewStyle" parent="GridViewStyle">
+        <item name="android:numColumns">2</item>
+    </style>
+
+    <style name="BackImageViewStyle">
+        <item name="android:layout_width">10dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:background">@mipmap/btn_header_back</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="TitleTextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:textColor">#ffffff</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>

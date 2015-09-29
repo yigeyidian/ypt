@@ -6,7 +6,8 @@
     android:background="#eeeeee"
     android:orientation="vertical">
 
-    <ScrollView
+    <com.tanglang.ypt.view.YPScrollView
+        android:id="@+id/homeloaded_sv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="none">
@@ -85,9 +86,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="110dp"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
+                android:background="@color/spacingColor"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -119,22 +121,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="#dddddd"
-                android:paddingBottom="1sp"
-                android:paddingTop="1sp"
                 tanglang:showimage="false"
                 tanglang:text="品牌合作"
                 tanglang:textColor="@color/fontColor" />
 
             <com.tanglang.ypt.view.HomeGridView
                 android:id="@+id/homeloaded_rv_company"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#cccccc"
-                android:horizontalSpacing="1sp"
-                android:numColumns="3"
-                android:verticalSpacing="1sp" />
+                style="@style/BrandGridViewStyle" />
         </LinearLayout>
-    </ScrollView>
+    </com.tanglang.ypt.view.YPScrollView>
 
 </LinearLayout>

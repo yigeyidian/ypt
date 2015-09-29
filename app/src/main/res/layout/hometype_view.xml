@@ -9,19 +9,12 @@
         android:id="@+id/type_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#dddddd"
-        android:paddingBottom="1sp"
-        android:paddingTop="1sp"
         tanglang:showimage="false"
         tanglang:text="品牌合作"
         tanglang:textColor="@color/fontColor" />
 
     <com.tanglang.ypt.view.HomeGridView
         android:id="@+id/tyoe_gridview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:horizontalSpacing="1sp"
-        android:numColumns="2"
-        android:verticalSpacing="1sp" />
+        style="@style/DrugGridViewStyle" />
 
 </LinearLayout>

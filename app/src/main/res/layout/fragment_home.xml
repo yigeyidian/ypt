@@ -10,8 +10,10 @@
         android:layout_height="match_parent" />
 
     <com.tanglang.ypt.view.TopSearchView
+        android:id="@+id/home_topmenu"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="wrap_content"
+        android:background="@drawable/topview_back" />
 
 
 </RelativeLayout>
