@@ -1,6 +1,7 @@
 package com.tanglang.ypt.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
@@ -8,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.SearchView;
 
 import com.tanglang.ypt.R;
+import com.tanglang.ypt.activity.ScanActivity;
 
 public class TopSearchView extends LinearLayout {
 
@@ -34,5 +36,13 @@ public class TopSearchView extends LinearLayout {
         //addView(view);
         Button btMenu = (Button) view.findViewById(R.id.topsearch_bt_menu);
         Button btScan = (Button) view.findViewById(R.id.topsearch_bt_scan);
+
+        btScan.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ScanActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
     }
 }

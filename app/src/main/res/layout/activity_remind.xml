@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.tanglang.ypt.activity.BannerActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/titleBackColor"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/remind_iv_back"
+            style="@style/BackImageButtonStyle" />
+
+        <TextView
+            style="@style/TitleTextViewStyle"
+            android:text="服药提醒" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/banner_context"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

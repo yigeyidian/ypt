@@ -49,7 +49,7 @@ public class DrugGridAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = View.inflate(mContext, R.layout.drug_item, null);
+            convertView = View.inflate(mContext, R.layout.druggrid_item, null);
             viewHolder = new ViewHolder();
             viewHolder.ivImage = (ImageView) convertView.findViewById(R.id.drug_image);
             viewHolder.tvText = (TextView) convertView.findViewById(R.id.drug_name);
@@ -60,27 +60,27 @@ public class DrugGridAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         Drug drug = mData.get(position);
-        bitmapUtils.display(viewHolder.ivImage, drug.TitleImg);
-        if (!TextUtils.isEmpty(drug.NameCN)) {
-            viewHolder.tvText.setText(drug.NameCN);
+        bitmapUtils.display(viewHolder.ivImage, drug.titleimg);
+        if (!TextUtils.isEmpty(drug.namecn)) {
+            viewHolder.tvText.setText(drug.namecn);
         }
-        if (!TextUtils.isEmpty(drug.AvgPrice)) {
-            viewHolder.tvPrice.setText("￥" + drug.AvgPrice);
+        if (!TextUtils.isEmpty(drug.avgprice)) {
+            viewHolder.tvPrice.setText("￥" + drug.avgprice);
         }
 
         viewHolder.llOther.removeAllViews();
-        if (drug.NewOTC.equals("1")) {
+        if (drug.newotc.equals("1")) {
             viewHolder.llOther.addView(createImageView(R.mipmap.ic_my_otc));
-        } else if (drug.NewOTC.equals("2")) {
+        } else if (drug.newotc.equals("2")) {
             viewHolder.llOther.addView(createImageView(R.mipmap.ic_my_otc2));
-        } else if (drug.NewOTC.equals("3")) {
+        } else if (drug.newotc.equals("3")) {
             viewHolder.llOther.addView(createImageView(R.mipmap.ic_my_rx));
         }
 
-        if (drug.BaseMed.equals("1")) {
+        if (drug.basemed.equals("1")) {
             viewHolder.llOther.addView(createImageView(R.mipmap.ic_my_base));
         }
-        if (drug.MedCare.equals("1")) {
+        if (drug.medcare.equals("1")) {
             viewHolder.llOther.addView(createImageView(R.mipmap.ic_my_csl));
         }
         return convertView;

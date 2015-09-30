@@ -25,6 +25,11 @@
         <activity android:name=".activity.BannerActivity" />
         <activity android:name=".activity.BrandActivity" />
         <activity android:name=".activity.FindDrugActivity" />
+        <activity android:name=".activity.ScanActivity" />
+        <activity android:name=".activity.DoctorActivity" />
+        <activity android:name=".activity.RemindActivity" />
+        <activity android:name=".activity.BrandDetailActivity" />
+        <activity android:name=".activity.DrugDetailActivity" />
     </application>
 
 </manifest>

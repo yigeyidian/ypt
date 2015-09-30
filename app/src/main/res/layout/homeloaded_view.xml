@@ -123,7 +123,7 @@
                 android:layout_marginTop="10dp"
                 tanglang:showimage="false"
                 tanglang:text="品牌合作"
-                tanglang:textColor="@color/fontColor" />
+                tanglang:textColor="#888888" />
 
             <com.tanglang.ypt.view.HomeGridView
                 android:id="@+id/homeloaded_rv_company"

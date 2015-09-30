@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="drugs">
+
+        <item>A阿米巴病</item>
+        <item>A艾滋病</item>
+
+        <item>B疤痕</item>
+        <item>B白带异常</item>
+        <item>B白癜风</item>
+        <item>B白细胞减少</item>
+        <item>B白血病</item>
+        <item>B鼻咽癌</item>
+        <item>B扁桃体炎</item>
+        <item>B丙肝</item>
+        <item>B病毒性感冒</item>
+
+        <item>C产后疾病</item>
+        <item>C痴呆</item>
+
+        <item>D带状疱疹</item>
+        <item>D胆结石</item>
+        <item>D胆囊炎</item>
+        <item>D低血钾</item>
+        <item>D低血糖</item>
+        <item>D滴虫病</item>
+        <item>D癫痫</item>
+        <item>D多动症</item>
+        <item>D多发性神经炎</item>
+
+        <item>E耳聋</item>
+
+        <item>F肥胖症</item>
+        <item>F肺癌</item>
+        <item>F风湿疼痛</item>
+
+        <item>G肝癌</item>
+        <item>G肝纤维化</item>
+        <item>G肝性脑病</item>
+        <item>G肝硬化</item>
+        <item>G高血压</item>
+        <item>G高血脂</item>
+        <item>G更年期综合</item>
+        <item>G宫颈癌</item>
+        <item>G股骨头坏死</item>
+        <item>G骨癌</item>
+        <item>G骨关节炎</item>
+        <item>G骨质增生</item>
+        <item>G过敏</item>
+
+        <item>H红斑狼疮</item>
+        <item>H滑精遗精</item>
+        <item>H灰指甲</item>
+        <item>H蛔虫病</item>
+
+        <item>J肌肉关节痛</item>
+        <item>J脊柱侧弯</item>
+        <item>J甲状腺功能减退</item>
+        <item>J甲状腺功能亢进</item>
+        <item>J甲状腺瘤</item>
+        <item>J尖锐湿疣</item>
+        <item>J肩周炎</item>
+        <item>J疖肿疥疮</item>
+        <item>J结肠癌</item>
+        <item>J结核病</item>
+        <item>J精神分裂症</item>
+        <item>J颈椎病</item>
+        <item>J酒精肝</item>
+        <item>J酒渣鼻</item>
+
+        <item>K口舌生疮</item>
+
+        <item>L类风湿</item>
+        <item>L淋巴癌</item>
+        <item>L淋病</item>
+
+        <item>M螨虫感染</item>
+        <item>M慢性肾小球炎</item>
+
+        <item>N男性不育</item>
+        <item>N蛲虫病</item>
+        <item>N脑癌</item>
+        <item>N脑血管病</item>
+        <item>N内分泌失调</item>
+        <item>N尿崩症</item>
+        <item>N尿道结石</item>
+        <item>N尿毒症</item>
+        <item>N尿路感染</item>
+        <item>N扭伤挫伤冻伤</item>
+        <item>N疟疾</item>
+        <item>N女性不育</item>
+
+        <item>P帕金森</item>
+        <item>P膀胱癌</item>
+        <item>P膀胱炎</item>
+        <item>P皮肤癌</item>
+        <item>P皮炎湿疹</item>
+        <item>P偏头痛</item>
+        <item>P贫血</item>
+
+        <item>Q气管炎</item>
+        <item>Q前列腺癌</item>
+        <item>Q强迫症</item>
+        <item>Q强直性脊柱炎</item>
+
+        <item>R乳腺癌</item>
+        <item>R乳腺增生</item>
+
+        <item>S色斑</item>
+        <item>S烧伤烫伤</item>
+        <item>S少精无精</item>
+        <item>S射精无力</item>
+        <item>S神经衰弱</item>
+        <item>S神经损伤</item>
+        <item>S神经性疼痛</item>
+        <item>S肾癌</item>
+        <item>S肾病综合症</item>
+        <item>S肾炎</item>
+        <item>S生殖器疱疹</item>
+        <item>S失眠</item>
+        <item>S湿毒疮</item>
+        <item>S食道癌</item>
+        <item>S手足皲裂</item>
+        <item>S输尿管结石</item>
+        <item>S丝虫病</item>
+
+        <item>T糖尿病</item>
+        <item>T痛风</item>
+        <item>T痛经</item>
+        <item>T头痛头晕</item>
+        <item>T脱发斑秃</item>
+
+        <item>W胃癌</item>
+        <item>W胃脘疼痛</item>
+
+        <item>X小儿脑瘫</item>
+        <item>X心脏及冠脉疾病</item>
+        <item>X癣症</item>
+        <item>X血小板减少</item>
+        <item>X荨麻疹</item>
+
+        <item>Y牙痛</item>
+        <item>Y咽痛音哑</item>
+        <item>Y炎症类</item>
+        <item>Y阳痿早泄</item>
+        <item>Y腰肌劳损</item>
+        <item>Y腰椎间盘突出</item>
+        <item>Y胰腺炎</item>
+        <item>Y乙肝</item>
+        <item>Y抑郁症</item>
+        <item>Y阴道炎</item>
+        <item>Y月经不调</item>
+        <item>Y晕车晕船</item>
+        <item>Y运动神经元病</item>
+
+        <item>Z脂肪肝</item>
+        <item>Z止咳</item>
+        <item>Z止泻类</item>
+        <item>Z痔疮便秘便血</item>
+        <item>Z中风偏瘫</item>
+        <item>Z周围血管疾病</item>
+        <item>Z助消化类</item>
+        <item>Z子宫肌瘤</item>
+        <item>Z子宫内膜异位</item>
+        <item>Z坐骨神经痛</item>
+        <item>Z痔疮粉刺</item>
+    </string-array>
+</resources>

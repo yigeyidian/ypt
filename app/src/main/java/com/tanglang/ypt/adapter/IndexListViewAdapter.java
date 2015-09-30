@@ -41,8 +41,9 @@ public class IndexListViewAdapter extends BaseAdapter {
         TextView textView = new TextView(mContext);
         textView.setText(mData[position]);
         textView.setLayoutParams(new AbsListView.LayoutParams(-1, -2));
-        textView.setBackgroundColor(Color.parseColor("#ffffff"));
         textView.setGravity(Gravity.CENTER);
+        textView.setTextColor(Color.parseColor("#888888"));
+        textView.setBackgroundColor(Color.parseColor("#00000000"));
         return textView;
     }
 }

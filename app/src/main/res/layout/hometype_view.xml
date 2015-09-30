@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         tanglang:showimage="false"
         tanglang:text="品牌合作"
-        tanglang:textColor="@color/fontColor" />
+        tanglang:textColor="#888888" />
 
     <com.tanglang.ypt.view.HomeGridView
         android:id="@+id/tyoe_gridview"

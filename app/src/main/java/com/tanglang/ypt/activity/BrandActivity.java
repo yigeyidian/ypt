@@ -1,7 +1,10 @@
 package com.tanglang.ypt.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.tanglang.ypt.R;
@@ -16,20 +19,30 @@ import java.util.List;
  */
 public class BrandActivity extends BaseActivity {
 
-    private ImageView ivBack;
+    private ImageButton ivBack;
     private HomeGridView gridView;
+    private List<Brand> brandList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_brand);
 
-        ivBack = (ImageView) findViewById(R.id.brand_iv_back);
+        ivBack = (ImageButton) findViewById(R.id.brand_iv_back);
         gridView = (HomeGridView) findViewById(R.id.brand_gv);
 
-        List<Brand> brandList = (List<Brand>) getIntent().getSerializableExtra("brands");
+        brandList = (List<Brand>) getIntent().getSerializableExtra("brands");
         BrandGridViewAdapter adapter = new BrandGridViewAdapter(this, brandList);
         gridView.setAdapter(adapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(BrandActivity.this, BrandDetailActivity.class);
+                intent.putExtra("brand", brandList.get(position));
+                startActivity(intent);
+            }
+        });
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override

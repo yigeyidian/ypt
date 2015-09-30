@@ -5,7 +5,7 @@
         <attr name="text" format="string" />
         <attr name="image" format="integer" />
         <attr name="showimage" format="boolean" />
-        <attr name="textColor" format="integer" />
+        <attr name="textColor" format="string" />
     </declare-styleable>
 
 </resources>

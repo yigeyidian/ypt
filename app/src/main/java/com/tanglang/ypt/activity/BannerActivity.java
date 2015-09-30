@@ -8,12 +8,13 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -21,36 +22,47 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.tanglang.ypt.R;
 import com.tanglang.ypt.adapter.DrugGridAdapter;
+import com.tanglang.ypt.bean.Banner;
 import com.tanglang.ypt.bean.BannerDetailBean;
-import com.tanglang.ypt.bean.HomeLayoutBean;
+import com.tanglang.ypt.bean.Drug;
 import com.tanglang.ypt.utils.BitmapHelper;
 import com.tanglang.ypt.utils.UrlUtils;
 import com.tanglang.ypt.view.HomeGridView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  */
 public class BannerActivity extends BaseActivity implements View.OnClickListener {
 
-    private ImageView ivBack;
+    private ImageButton ivBack;
     private FrameLayout mFrameLayout;
-    private HomeLayoutBean.Banner banner;
+    private Banner banner;
     private View loadingFailView;
     private View loadingView;
     private TextView tvTitle;
     private BannerDetailBean bannerDetailData;
+
+    private String imageUrl;
+    private List<Drug> drugList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_banner);
 
-        ivBack = (ImageView) findViewById(R.id.banner_iv_back);
+        ivBack = (ImageButton) findViewById(R.id.banner_iv_back);
         tvTitle = (TextView) findViewById(R.id.banner_tv_title);
         mFrameLayout = (FrameLayout) findViewById(R.id.banner_context);
 
         Intent intent = getIntent();
-        banner = (HomeLayoutBean.Banner) intent.getSerializableExtra("banner");
+        banner = (Banner) intent.getSerializableExtra("banner");
         if (banner == null) {
             return;
         }
@@ -144,17 +156,54 @@ public class BannerActivity extends BaseActivity implements View.OnClickListener
             loadingFailView();
             return;
         }
-
-        bannerDetailData = new Gson().fromJson(data, BannerDetailBean.class);
+        parseJson(data);
+        if(drugList == null){
+            loadingFailView();
+            return;
+        }
 
         View loadSuccesView = View.inflate(this, R.layout.banner_loadingsucc, null);
         ImageView ivImage = (ImageView) loadSuccesView.findViewById(R.id.banner_image);
         HomeGridView gridView = (HomeGridView) loadSuccesView.findViewById(R.id.banner_gv);
-        BitmapHelper.getBitmapUtils(this).display(ivImage, bannerDetailData.list.banner_image_url);
-        DrugGridAdapter adapter = new DrugGridAdapter(this, bannerDetailData.list.drug_list);
+        BitmapHelper.getBitmapUtils(this).display(ivImage, imageUrl);
+        DrugGridAdapter adapter = new DrugGridAdapter(this, drugList);
         gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(BannerActivity.this, DrugDetailActivity.class);
+                intent.putExtra("drug", drugList.get(position));
+                startActivity(intent);
+            }
+        });
 
         changeView(loadSuccesView);
+    }
+
+    private void parseJson(String data){
+        try {
+            JSONObject jsonObject = new JSONObject(data).optJSONObject("list");
+            drugList = new ArrayList<>();
+            imageUrl = jsonObject.optString("banner_image_url");
+            JSONArray drugJsons = jsonObject.optJSONArray("drug_list");
+            drugList = new ArrayList<>();
+            for(int i=0; i<drugJsons.length(); i++){
+                JSONObject drugJson = drugJsons.optJSONObject(i);
+                Drug drug = new Drug();
+                drug._id = drugJson.optString("id");
+                drug.aliascn = drugJson.optString("AliasCN");
+                drug.avgprice = drugJson.optString("AvgPrice");
+                drug.basemed = drugJson.optString("BaseMed");
+                drug.medcare = drugJson.optString("MedCare");
+                drug.namecn = drugJson.optString("NameCN");
+                drug.newotc = drugJson.optString("NewOTC");
+                drug.titleimg = drugJson.optString("TitleImg");
+                drugList.add(drug);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/titleBackColor"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/branddetail_iv_back"
+            style="@style/BackImageButtonStyle" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/rect_gray"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_margin="8dp"
+                android:src="@mipmap/ic_search_grey" />
+
+            <TextView
+                android:id="@+id/branddetail_tv_find"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="输入药品名或者疾病名"
+                android:textColor="#dddddd" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/branddetail_bt_search"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:drawableTop="@drawable/ic_scan_selector"
+            android:text="扫一扫"
+            android:textColor="#ffffff"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/branddetail_bt_brand"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:drawableRight="@mipmap/ic_select_title_down"
+            android:padding="10dp"
+            android:text="品牌"
+            android:textColor="@color/fontColor" />
+
+        <TextView
+            android:layout_width="1sp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/spacingColor" />
+
+        <Button
+            android:id="@+id/branddetail_bt_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:drawableRight="@mipmap/ic_select_title_down"
+            android:padding="10dp"
+            android:text="价格"
+            android:textColor="@color/fontColor" />
+
+        <TextView
+            android:layout_width="1sp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/spacingColor" />
+
+        <Button
+            android:id="@+id/branddetail_bt_yibao"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:drawableRight="@mipmap/ic_select_title_down"
+            android:padding="10dp"
+            android:text="医保"
+            android:textColor="@color/fontColor" />
+
+        <TextView
+            android:layout_width="1sp"
+            android:layout_height="20dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/spacingColor" />
+
+        <Button
+            android:id="@+id/branddetail_bt_jibenyao"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:drawableRight="@mipmap/ic_select_title_down"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="基本药"
+            android:textColor="@color/fontColor" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1sp"
+        android:background="@color/spacingColor" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:id="@+id/drug_context"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:id="@+id/type_ll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ee333333"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <ListView
+                android:id="@+id/type_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff" />
+        </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

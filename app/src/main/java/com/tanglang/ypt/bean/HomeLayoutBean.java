@@ -17,16 +17,6 @@ public class HomeLayoutBean implements Serializable {
         public List<Type> types;
     }
 
-    public class Banner implements Serializable {
-        public String desc;
-        public String id;
-        public String image_url;
-        public String motion;
-        public String target;
-        public String title;
-        public String type;
-    }
-
     public class Type implements Serializable {
         public String id;
         public String type_name;

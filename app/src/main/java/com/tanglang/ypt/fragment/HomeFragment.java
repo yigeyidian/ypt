@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -19,25 +20,30 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 import com.tanglang.ypt.R;
+import com.tanglang.ypt.YPTApplication;
 import com.tanglang.ypt.activity.BannerActivity;
 import com.tanglang.ypt.activity.BrandActivity;
+import com.tanglang.ypt.activity.BrandDetailActivity;
+import com.tanglang.ypt.activity.DoctorActivity;
+import com.tanglang.ypt.activity.DrugDetailActivity;
 import com.tanglang.ypt.activity.FindDrugActivity;
+import com.tanglang.ypt.activity.RemindActivity;
+import com.tanglang.ypt.activity.ScanActivity;
 import com.tanglang.ypt.adapter.BannerImagePagerAdapter;
 import com.tanglang.ypt.adapter.BrandGridViewAdapter;
 import com.tanglang.ypt.adapter.DrugGridAdapter;
+import com.tanglang.ypt.bean.Banner;
 import com.tanglang.ypt.bean.Brand;
 import com.tanglang.ypt.bean.Drug;
 import com.tanglang.ypt.bean.HomeLayoutBean;
 import com.tanglang.ypt.utils.BitmapHelper;
 import com.tanglang.ypt.utils.CacheUtils;
-import com.tanglang.ypt.utils.LogUtils;
 import com.tanglang.ypt.utils.UiUtils;
 import com.tanglang.ypt.utils.UrlUtils;
 import com.tanglang.ypt.view.HomeGridView;
@@ -50,7 +56,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -80,14 +88,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
         }
     };
-    private List<HomeLayoutBean.Banner> banners;
+    private List<Banner> banners;
     private Timer timer;
-    private List<HomeLayoutBean.Banner> banners1;
+    private List<Banner> banners1;
     private HomeGridView companyView;
     private ImageView ivLeftBanner;
     private ImageView ivRightBanner;
     private LinearLayout typeView;
     private TopSearchView topSearchView;
+    private YPTApplication application;
+    private List<Map<String, Object>> types;
 
     @Nullable
     @Override
@@ -207,6 +217,57 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
 
+    private void parseJson(String data) {
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            JSONObject listJson = jsonObject.optJSONObject("list");
+            JSONArray bannerJsons = listJson.optJSONArray("banner");
+            banners = new ArrayList<>();
+            banners1 = new ArrayList<>();
+            for (int i = 0; i < bannerJsons.length(); i++) {
+                Banner banner = new Banner();
+                JSONObject bannerJson = bannerJsons.optJSONObject(i);
+                banner.desc = bannerJson.optString("desc");
+                banner.id = bannerJson.optString("id;");
+                banner.image_url = bannerJson.optString("image_url");
+                banner.motion = bannerJson.optString("motion");
+                banner.target = bannerJson.optString("target");
+                banner.title = bannerJson.optString("title");
+                banner.type = bannerJson.optString("type");
+                if (banner.type.equals("0")) {
+                    banners.add(banner);
+                } else {
+                    banners1.add(banner);
+                }
+            }
+            JSONArray typesJsons = listJson.optJSONArray("types");
+            types = new ArrayList<>();
+            for (int i = 0; i < typesJsons.length(); i++) {
+                Map<String, Object> type = new HashMap<>();
+                type.put("type_name", typesJsons.optJSONObject(i).optString("type_name"));
+                JSONArray drugJsons = typesJsons.optJSONObject(i).optJSONArray("drug_list");
+                List<Drug> drugs = new ArrayList<>();
+                for (int j = 0; j < drugJsons.length(); j++) {
+                    JSONObject drugJson = drugJsons.optJSONObject(j);
+                    Drug drug = new Drug();
+                    drug._id = drugJson.optString("id");
+                    drug.aliascn = drugJson.optString("AliasCN");
+                    drug.avgprice = drugJson.optString("AvgPrice");
+                    drug.basemed = drugJson.optString("BaseMed");
+                    drug.medcare = drugJson.optString("MedCare");
+                    drug.namecn = drugJson.optString("NameCN");
+                    drug.newotc = drugJson.optString("NewOTC");
+                    drug.titleimg = drugJson.optString("TitleImg");
+                    drugs.add(drug);
+                }
+                type.put("drug_list", drugs);
+                types.add(type);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * 解析布局数据
      *
@@ -228,7 +289,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
 
         CacheUtils.saveCache(getContext(), UrlUtils.HOME_LAYOUT, data);
-        mLayoutData = new Gson().fromJson(data, HomeLayoutBean.class);
+        //mLayoutData = new Gson().fromJson(data, HomeLayoutBean.class);
+        parseJson(data);
 
         loadSuccesView = View.inflate(getContext(), R.layout.homeloaded_view, null);
 
@@ -263,20 +325,29 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         startTimer();
         changeView(loadSuccesView);
+        application = (YPTApplication) getActivity().getApplication();
     }
 
     private void initType() {
-        typeView.addView(createType(mLayoutData.list.types.get(0).type_name, mLayoutData.list.types.get(0).drug_list));
-        typeView.addView(createType(mLayoutData.list.types.get(1).type_name, mLayoutData.list.types.get(1).drug_list));
+        typeView.addView(createType((String) types.get(0).get("type_name"), (List<Drug>) types.get(0).get("drug_list")));
+        typeView.addView(createType((String) types.get(1).get("type_name"), (List<Drug>) types.get(1).get("drug_list")));
     }
 
-    private View createType(String type, List<Drug> data) {
+    private View createType(String type, final List<Drug> data) {
         View typeView = View.inflate(getActivity(), R.layout.hometype_view, null);
         YButton button = (YButton) typeView.findViewById(R.id.type_button);
         HomeGridView gridView = (HomeGridView) typeView.findViewById(R.id.tyoe_gridview);
         button.setText(type);
         DrugGridAdapter typeGridAdapter = new DrugGridAdapter(getActivity(), data);
         gridView.setAdapter(typeGridAdapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), DrugDetailActivity.class);
+                intent.putExtra("drug", data.get(position));
+                startActivity(intent);
+            }
+        });
         return typeView;
     }
 
@@ -285,15 +356,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         radioGroup = (RadioGroup) loadSuccesView.findViewById(R.id.homeloaded_rg);
         ivLeftBanner = (ImageView) loadSuccesView.findViewById(R.id.homeloaded_iv_left);
         ivRightBanner = (ImageView) loadSuccesView.findViewById(R.id.homeloaded_iv_right);
-        banners = new ArrayList<>();
-        banners1 = new ArrayList<>();
-        for (int i = 0; i < mLayoutData.list.banner.size(); i++) {
-            if (mLayoutData.list.banner.get(i).type.equals("0")) {
-                banners.add(mLayoutData.list.banner.get(i));
-            } else {
-                banners1.add(mLayoutData.list.banner.get(i));
-            }
-        }
+
         BannerImagePagerAdapter pagerAdapter = new BannerImagePagerAdapter(getContext(), banners);
         bannerViewPager.setAdapter(pagerAdapter);
         bannerViewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -316,7 +379,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         YButton btBrand = (YButton) loadSuccesView.findViewById(R.id.homeloaded_bt_brand);
         btBrand.setOnClickListener(this);
         if (companyView != null && brandList != null && brandList.size() > 0) {
-            List<Brand> homeCompanies;
+            final List<Brand> homeCompanies;
             if (brandList.size() > 6) {
                 homeCompanies = brandList.subList(0, 6);
             } else {
@@ -324,6 +387,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             }
             BrandGridViewAdapter companyAdapter = new BrandGridViewAdapter(getContext(), homeCompanies);
             companyView.setAdapter(companyAdapter);
+            companyView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(getActivity(), BrandDetailActivity.class);
+                    intent.putExtra("brand", homeCompanies.get(position));
+                    startActivity(intent);
+                }
+            });
         }
     }
 
@@ -365,13 +436,32 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.homeloaded_bt_scan:
-                LogUtils.showToast(getActivity(), "扫码找药");
+                intent = new Intent(getActivity(), ScanActivity.class);
+                startActivity(intent);
                 break;
             case R.id.homeloaded_bt_doctor:
-                LogUtils.showToast(getActivity(), "咨询医生");
+                //LogUtils.showToast(getActivity(), "咨询医生");
+                if (application.getUser() == null) {
+                    intent = new Intent(getActivity(), DoctorActivity.class);
+                    intent.putExtra("user", application.getUser());
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(getActivity(), DoctorActivity.class);
+                    intent.putExtra("user", application.getUser());
+                    startActivity(intent);
+                }
                 break;
             case R.id.homeloaded_bt_remind:
-                LogUtils.showToast(getActivity(), "服药提醒");
+                //LogUtils.showToast(getActivity(), "服药提醒");
+                if (application.getUser() == null) {
+                    intent = new Intent(getActivity(), RemindActivity.class);
+                    intent.putExtra("user", application.getUser());
+                    startActivity(intent);
+                } else {
+                    intent = new Intent(getActivity(), RemindActivity.class);
+                    intent.putExtra("user", application.getUser());
+                    startActivity(intent);
+                }
                 break;
             case R.id.homeloaded_bt_find:
                 //LogUtils.showToast(getActivity(), "对症找药");

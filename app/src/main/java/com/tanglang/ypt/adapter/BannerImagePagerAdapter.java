@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.tanglang.ypt.activity.BannerActivity;
+import com.tanglang.ypt.bean.Banner;
 import com.tanglang.ypt.bean.HomeLayoutBean;
 import com.tanglang.ypt.utils.BitmapHelper;
 
@@ -17,10 +18,10 @@ import java.util.List;
  * Author： Administrator
  */
 public class BannerImagePagerAdapter extends PagerAdapter {
-    private List<HomeLayoutBean.Banner> mData;
+    private List<Banner> mData;
     private Context mContext;
 
-    public BannerImagePagerAdapter(Context context, List<HomeLayoutBean.Banner> data) {
+    public BannerImagePagerAdapter(Context context, List<Banner> data) {
         this.mContext = context;
         this.mData = data;
     }
@@ -37,7 +38,7 @@ public class BannerImagePagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, final int position) {
-        final HomeLayoutBean.Banner banner = mData.get(position);
+        final Banner banner = mData.get(position);
         ImageView imageView = new ImageView(mContext);
         imageView.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
         BitmapHelper.getBitmapUtils(mContext).display(imageView, banner.image_url);

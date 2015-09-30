@@ -11,9 +11,9 @@
         android:background="@color/titleBackColor"
         android:orientation="horizontal">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/banner_iv_back"
-            style="@style/BackImageViewStyle" />
+            style="@style/BackImageButtonStyle" />
 
         <TextView
             android:id="@+id/banner_tv_title"

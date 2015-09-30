@@ -5,6 +5,8 @@ import android.app.Application;
 import android.content.Context;
 
 
+import com.tanglang.ypt.bean.User;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class YPTApplication extends Application {
     private static YPTApplication application;
 
     private List<Activity> activities;
+    private User mUser;
 
     @Override
     public void onCreate() {
@@ -42,5 +45,13 @@ public class YPTApplication extends Application {
 
     public static Context getApplication() {
         return application;
+    }
+
+    public void setUser(User user) {
+        mUser = user;
+    }
+
+    public User getUser() {
+        return mUser;
     }
 }

@@ -2,6 +2,7 @@ package com.tanglang.ypt.view;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tanglang.ypt.R;
+import com.tanglang.ypt.utils.LogUtils;
 
 /**
  * Author： Administrator
@@ -21,7 +23,7 @@ public class YButton extends LinearLayout {
 
     private boolean isShowImage;
     private String text;
-    private int textColor;
+    private String textColor;
     private int imageId;
     private TextView tvText;
     private ImageView ivImage;
@@ -36,7 +38,7 @@ public class YButton extends LinearLayout {
         isShowImage = attrs.getAttributeBooleanValue(NAMESPACE, "showimage", false);
         imageId = attrs.getAttributeIntValue(NAMESPACE, "image", 0);
         text = attrs.getAttributeValue(NAMESPACE, "text");
-        textColor = attrs.getAttributeIntValue(NAMESPACE, "textColor", 0);
+        textColor = attrs.getAttributeValue(NAMESPACE, "textColor");
         initView();
     }
 
@@ -45,7 +47,7 @@ public class YButton extends LinearLayout {
         isShowImage = attrs.getAttributeBooleanValue(NAMESPACE, "showimage", false);
         imageId = attrs.getAttributeIntValue(NAMESPACE, "image", 0);
         text = attrs.getAttributeValue(NAMESPACE, "text");
-        textColor = attrs.getAttributeIntValue(NAMESPACE, "textColor", 0);
+        textColor = attrs.getAttributeValue(NAMESPACE, "textColor");
         initView();
     }
 
@@ -56,8 +58,10 @@ public class YButton extends LinearLayout {
         setImageVisible(isShowImage);
         setImageId(imageId);
         setText(text);
-        System.out.println(textColor + "--");
-        //tvText.setTextColor(getResources().getColor(textColor));
+        if (!TextUtils.isEmpty(textColor)) {
+            LogUtils.println("color:" + textColor);
+            tvText.setTextColor(Color.parseColor(textColor));
+        }
     }
 
     public void setText(String text) {
