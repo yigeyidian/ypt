@@ -63,7 +63,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:drawableRight="@mipmap/ic_select_title_down"
-            android:padding="10dp"
+            android:padding="5dp"
             android:text="品牌"
             android:textColor="@color/fontColor" />
 
@@ -80,7 +80,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:drawableRight="@mipmap/ic_select_title_down"
-            android:padding="10dp"
+            android:padding="5dp"
             android:text="价格"
             android:textColor="@color/fontColor" />
 
@@ -97,7 +97,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:drawableRight="@mipmap/ic_select_title_down"
-            android:padding="10dp"
+            android:padding="5dp"
             android:text="医保"
             android:textColor="@color/fontColor" />
 
@@ -115,7 +115,7 @@
             android:background="@color/white"
             android:drawableRight="@mipmap/ic_select_title_down"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="5dp"
             android:text="基本药"
             android:textColor="@color/fontColor" />
     </LinearLayout>

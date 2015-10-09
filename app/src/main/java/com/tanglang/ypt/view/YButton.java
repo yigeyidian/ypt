@@ -59,7 +59,6 @@ public class YButton extends LinearLayout {
         setImageId(imageId);
         setText(text);
         if (!TextUtils.isEmpty(textColor)) {
-            LogUtils.println("color:" + textColor);
             tvText.setTextColor(Color.parseColor(textColor));
         }
     }

@@ -2,6 +2,7 @@ package com.tanglang.ypt.activity;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.ListView;
 import com.tanglang.ypt.R;
 import com.tanglang.ypt.adapter.IndexListViewAdapter;
 import com.tanglang.ypt.adapter.TestBaseAdapter;
+import com.tanglang.ypt.utils.LogUtils;
 
 import java.util.WeakHashMap;
 
@@ -26,7 +28,7 @@ public class FindDrugActivity extends BaseActivity {
 
     private ExpandableStickyListHeadersListView mListView;
     TestBaseAdapter mTestBaseAdapter;
-    WeakHashMap<View, Integer> mOriginalViewHeightPool = new WeakHashMap<View, Integer>();
+    WeakHashMap<View, Integer> mOriginalViewHeightPool = new WeakHashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,16 @@ public class FindDrugActivity extends BaseActivity {
                 } else {
                     mListView.collapse(headerId);
                 }
+            }
+        });
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String key = (String) parent.getItemAtPosition(position);
+                Intent intent = new Intent(FindDrugActivity.this, DrugsActivity.class);
+                intent.putExtra("key", key.substring(1, key.length()));
+                startActivity(intent);
             }
         });
 

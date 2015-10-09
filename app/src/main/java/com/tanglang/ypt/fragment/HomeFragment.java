@@ -29,12 +29,13 @@ import com.tanglang.ypt.R;
 import com.tanglang.ypt.YPTApplication;
 import com.tanglang.ypt.activity.BannerActivity;
 import com.tanglang.ypt.activity.BrandActivity;
-import com.tanglang.ypt.activity.BrandDetailActivity;
+import com.tanglang.ypt.activity.DrugsActivity;
 import com.tanglang.ypt.activity.DoctorActivity;
 import com.tanglang.ypt.activity.DrugDetailActivity;
 import com.tanglang.ypt.activity.FindDrugActivity;
 import com.tanglang.ypt.activity.RemindActivity;
 import com.tanglang.ypt.activity.ScanActivity;
+import com.tanglang.ypt.activity.TypeListActivity;
 import com.tanglang.ypt.adapter.BannerImagePagerAdapter;
 import com.tanglang.ypt.adapter.BrandGridViewAdapter;
 import com.tanglang.ypt.adapter.DrugGridAdapter;
@@ -250,13 +251,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 for (int j = 0; j < drugJsons.length(); j++) {
                     JSONObject drugJson = drugJsons.optJSONObject(j);
                     Drug drug = new Drug();
-                    drug._id = drugJson.optString("id");
+                    drug._id = drugJson.optInt("id");
                     drug.aliascn = drugJson.optString("AliasCN");
-                    drug.avgprice = drugJson.optString("AvgPrice");
-                    drug.basemed = drugJson.optString("BaseMed");
-                    drug.medcare = drugJson.optString("MedCare");
+                    drug.avgprice = drugJson.optDouble("AvgPrice");
+                    drug.basemed = drugJson.optBoolean("BaseMed");
+                    drug.medcare = drugJson.optInt("MedCare");
                     drug.namecn = drugJson.optString("NameCN");
-                    drug.newotc = drugJson.optString("NewOTC");
+                    drug.newotc = drugJson.optInt("NewOTC");
                     drug.titleimg = drugJson.optString("TitleImg");
                     drugs.add(drug);
                 }
@@ -268,11 +269,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    /**
-     * 解析布局数据
-     *
-     * @param data
-     */
     private void paserLayoutData(String data) {
         if (TextUtils.isEmpty(data)) {
             loadingFailView();
@@ -333,7 +329,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         typeView.addView(createType((String) types.get(1).get("type_name"), (List<Drug>) types.get(1).get("drug_list")));
     }
 
-    private View createType(String type, final List<Drug> data) {
+    private View createType(final String type, final List<Drug> data) {
         View typeView = View.inflate(getActivity(), R.layout.hometype_view, null);
         YButton button = (YButton) typeView.findViewById(R.id.type_button);
         HomeGridView gridView = (HomeGridView) typeView.findViewById(R.id.tyoe_gridview);
@@ -348,10 +344,22 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent);
             }
         });
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), TypeListActivity.class);
+                intent.putExtra("typename", type);
+                startActivity(intent);
+            }
+        });
         return typeView;
     }
 
     private void initBanner() {
+        if (loadSuccesView == null) {
+            return;
+        }
         bannerViewPager = (ViewPager) loadSuccesView.findViewById(R.id.homeloaded_vp_banner);
         radioGroup = (RadioGroup) loadSuccesView.findViewById(R.id.homeloaded_rg);
         ivLeftBanner = (ImageView) loadSuccesView.findViewById(R.id.homeloaded_iv_left);
@@ -376,6 +384,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initBrand() {
+        if (loadSuccesView == null) {
+            return;
+        }
         YButton btBrand = (YButton) loadSuccesView.findViewById(R.id.homeloaded_bt_brand);
         btBrand.setOnClickListener(this);
         if (companyView != null && brandList != null && brandList.size() > 0) {
@@ -390,8 +401,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             companyView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(getActivity(), BrandDetailActivity.class);
+                    Intent intent = new Intent(getActivity(), DrugsActivity.class);
                     intent.putExtra("brand", homeCompanies.get(position));
+                    intent.putExtra("key", homeCompanies.get(position).namecn);
                     startActivity(intent);
                 }
             });

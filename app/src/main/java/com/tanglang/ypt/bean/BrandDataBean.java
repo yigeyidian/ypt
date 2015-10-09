@@ -13,5 +13,6 @@ public class BrandDataBean implements Serializable {
     public class Data implements Serializable {
         public List<Drug> List;
         public int Count;
+        public List<String> Brands;
     }
 }

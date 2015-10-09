@@ -72,6 +72,8 @@ public class DrugListView extends ListView implements AbsListView.OnScrollListen
         }
     }
 
+
+
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 

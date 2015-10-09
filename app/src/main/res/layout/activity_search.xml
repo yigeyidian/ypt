@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/titleBackColor"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/search_iv_back"
+            style="@style/BackImageButtonStyle" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/rect_gray"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/search_iv_search"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_margin="8dp"
+                android:src="@mipmap/ic_search_grey" />
+
+            <EditText
+                android:id="@+id/search_et_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:hint="输入药品名或者疾病名"
+                android:textColorHint="#dddddd"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/search_ll_scan"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:paddingBottom="8dp"
+            android:paddingRight="5dp"
+            android:paddingTop="8dp">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_scan_selector" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="3dp"
+                android:text="扫一扫"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/search_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ProgressBar
+            android:id="@+id/search_loading"
+            style="@style/myProgressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <ListView
+            android:id="@+id/search_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/spacingColor"
+            android:dividerHeight="1sp" />
+    </RelativeLayout>
+
+</LinearLayout>

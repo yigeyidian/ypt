@@ -78,6 +78,7 @@
         <item name="android:layout_centerInParent">true</item>
         <item name="android:textColor">#ffffff</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:singleLine">true</item>
     </style>
 
     <style name="RadioButtonStyle">
@@ -102,5 +103,19 @@
         <item name="android:indeterminateDrawable">@drawable/ratingbar_full_material</item>
     </style>
 
+    <style name="DrugAboutItemTitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
 
+    <style name="DrugAboutItemText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/fontColor</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+    </style>
 </resources>

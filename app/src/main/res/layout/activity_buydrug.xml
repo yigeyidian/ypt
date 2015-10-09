@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/titleBackColor"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/buydrug_back"
+            style="@style/BackImageButtonStyle" />
+
+        <TextView
+            android:id="@+id/buydrug_title"
+            style="@style/TitleTextViewStyle"
+            android:text="品牌列表" />
+
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/buydrug_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

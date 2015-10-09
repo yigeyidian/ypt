@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backColor"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【药品名称】" />
+
+            <TextView
+                android:id="@+id/drugabout_drugname"
+                style="@style/DrugAboutItemText" />
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【成份】" />
+
+            <TextView
+                android:id="@+id/drugabout_composition"
+                style="@style/DrugAboutItemText" />
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【性状】" />
+
+            <TextView
+                android:id="@+id/drugabout_drugattribute"
+                style="@style/DrugAboutItemText" />
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【适应症】" />
+
+            <TextView
+                android:id="@+id/drugabout_gongneng"
+                style="@style/DrugAboutItemText" />
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【规格】" />
+
+            <TextView
+                android:id="@+id/drugabout_unit"
+                style="@style/DrugAboutItemText" />
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【用法用量】" />
+
+            <TextView
+                android:id="@+id/drugabout_usage"
+                style="@style/DrugAboutItemText" />
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【不良反应】" />
+
+            <TextView
+                android:id="@+id/drugabout_adr"
+                style="@style/DrugAboutItemText" />
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【禁忌】" />
+
+            <TextView
+                android:id="@+id/drugabout_contraindication"
+                style="@style/DrugAboutItemText" />
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【注意事项】" />
+
+            <TextView
+                android:id="@+id/drugabout_note"
+                style="@style/DrugAboutItemText" />
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【药物相互作用】" />
+
+            <TextView
+                android:id="@+id/drugabout_interaction"
+                style="@style/DrugAboutItemText" />
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【药理作用】" />
+
+            <TextView
+                android:id="@+id/drugabout_pharmacology"
+                style="@style/DrugAboutItemText" />
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【贮藏】" />
+
+            <TextView
+                android:id="@+id/drugabout_storage"
+                style="@style/DrugAboutItemText" />
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【有效期】" />
+
+            <TextView
+                android:id="@+id/drugabout_shelflife"
+                style="@style/DrugAboutItemText" />
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【批准文号】" />
+
+            <TextView
+                android:id="@+id/drugabout_codename"
+                style="@style/DrugAboutItemText" />
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【执行标准】" />
+
+            <TextView
+                android:id="@+id/drugabout_standard"
+                style="@style/DrugAboutItemText" />
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【说明谁修订日期】" />
+
+            <TextView
+                android:id="@+id/drugabout_specificationdate"
+                style="@style/DrugAboutItemText" />
+
+            <TextView
+                style="@style/DrugAboutItemTitle"
+                android:text="【生产企业】" />
+
+            <TextView
+                android:id="@+id/drugabout_refdrugcompanyname"
+                style="@style/DrugAboutItemText" />
+
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>

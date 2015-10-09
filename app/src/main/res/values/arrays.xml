@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string-array name="homeType">
+        <item>跌打损伤</item>
+        <item>烧伤烫伤</item>
+        <item>晕车晕船</item>
+        <item>皮肤湿疹</item>
+        <item>消化不良</item>
+        <item>咽痛音哑</item>
+        <item>口舌生疮</item>
+    </string-array>
+    
+    <string-array name="coldType">
+        <item>解热镇痛</item>
+        <item>病毒性感冒</item>
+        <item>驱风祛暑</item>
+        <item>清热解毒</item>
+    </string-array>
+
+    <string-array name="vitaminType">
+        <item>补钙补锌</item>
+        <item>补铁补硒</item>
+        <item>复合维生素</item>
+        <item>叶酸类</item>
+    </string-array>
+
+    <string-array name="chronicType">
+        <item>心脑血管病</item>
+        <item>糖尿病用药</item>
+        <item>胃肠用药</item>
+        <item>呼吸系统药</item>
+    </string-array>
+
+    <string-array name="womanType">
+        <item>阴道炎</item>
+        <item>月经不调</item>
+        <item>痛经</item>
+        <item>更年期综合</item>
+        <item>白带异常</item>
+        <item>女性不孕</item>
+    </string-array>
+
+    <string-array name="manType">
+        <item>前列腺用药</item>
+        <item>阳痿早泄</item>
+        <item>滑精遗精</item>
+        <item>脱发斑秃</item>
+        <item>男性不孕</item>
+    </string-array>
+
+    <string-array name="childType">
+        <item>小儿感冒发烧</item>
+        <item>小儿止咳化痰</item>
+        <item>小儿胃肠用药</item>
+        <item>小儿止泻用药</item>
+    </string-array>
+
     <string-array name="drugs">
 
         <item>A阿米巴病</item>

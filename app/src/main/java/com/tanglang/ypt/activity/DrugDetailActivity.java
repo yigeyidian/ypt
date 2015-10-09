@@ -1,5 +1,6 @@
 package com.tanglang.ypt.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -26,11 +27,16 @@ import com.tanglang.ypt.R;
 import com.tanglang.ypt.adapter.DrugPagerAdaper;
 import com.tanglang.ypt.bean.Drug;
 import com.tanglang.ypt.bean.DrugDetail;
+import com.tanglang.ypt.fragment.DrugAboutFragment;
+import com.tanglang.ypt.fragment.DrugAskFragment;
 import com.tanglang.ypt.fragment.DrugCommFragment;
 import com.tanglang.ypt.fragment.DrugPriceFragment;
 import com.tanglang.ypt.utils.BitmapHelper;
 import com.tanglang.ypt.utils.LogUtils;
 import com.tanglang.ypt.utils.UrlUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +47,7 @@ import java.util.List;
  */
 public class DrugDetailActivity extends BaseActivity implements View.OnClickListener {
 
-    private FrameLayout frameLayout;
+    private FrameLayout mFrameLayout;
     private View loadingView;
     private View loadingFailView;
     private Drug drug;
@@ -49,6 +55,7 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
     private ViewPager viewPager;
     private Button btComm;
     private Button btPrice;
+    private String webUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +70,7 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
         ImageButton btBack = (ImageButton) findViewById(R.id.drug_iv_back);
         Button btFavor = (Button) findViewById(R.id.drug_iv_favor);
         Button btShare = (Button) findViewById(R.id.drug_iv_share);
-        frameLayout = (FrameLayout) findViewById(R.id.drug_context);
+        mFrameLayout = (FrameLayout) findViewById(R.id.drug_context);
 
         btBack.setOnClickListener(this);
         btFavor.setOnClickListener(this);
@@ -98,12 +105,25 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
         });
     }
 
+    public void setWebUrl(String url) {
+        webUrl = url;
+    }
+
     private void parseData(String data) {
         if (TextUtils.isEmpty(data)) {
             loadingFailView();
             return;
         }
-        LogUtils.println(data);
+
+        try {
+            JSONObject dataJson = new JSONObject(data);
+            if (dataJson.optString("status").equals("Err")) {
+                loadingFailView();
+                return;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         DrugDetail drugData = new Gson().fromJson(data, DrugDetail.class);
 
@@ -127,17 +147,27 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
         addOtherView(llOther, drugData);
         btPrice.setText("最低价￥" + drugData.results.avgprice);
 
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("drug", drugData);
+
+        //4个药品详情Fragment
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new DrugPriceFragment());
+        DrugPriceFragment drugPriceFragment = new DrugPriceFragment();
+        drugPriceFragment.setArguments(bundle);
+        fragments.add(drugPriceFragment);
 
         DrugCommFragment drugCommFragment = new DrugCommFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("drug",drugData);
         drugCommFragment.setArguments(bundle);
         fragments.add(drugCommFragment);
 
-        fragments.add(new DrugPriceFragment());
-        fragments.add(new DrugPriceFragment());
+        DrugAskFragment arugAskFragment = new DrugAskFragment();
+        arugAskFragment.setArguments(bundle);
+        fragments.add(arugAskFragment);
+
+        DrugAboutFragment drugAboutFragment = new DrugAboutFragment();
+        drugAboutFragment.setArguments(bundle);
+        fragments.add(drugAboutFragment);
+
         DrugPagerAdaper adaper = new DrugPagerAdaper(getSupportFragmentManager(), fragments);
         viewPager.setAdapter(adaper);
         viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -175,8 +205,14 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
         });
         ((RadioButton) tab.getChildAt(0)).setChecked(true);
         btComm.setVisibility(View.GONE);
+        btComm.setOnClickListener(this);
+        btPrice.setOnClickListener(this);
 
         changeView(loadedView);
+    }
+
+    public void setBtPrice(float price) {
+        btPrice.setText("最低价￥" + price);
     }
 
     private void addOtherView(LinearLayout ll, DrugDetail drug) {
@@ -217,8 +253,8 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     private void changeView(View view) {
-        frameLayout.removeAllViews();
-        frameLayout.addView(view);
+        mFrameLayout.removeAllViews();
+        mFrameLayout.addView(view);
     }
 
     @Override
@@ -235,6 +271,12 @@ public class DrugDetailActivity extends BaseActivity implements View.OnClickList
                 break;
             case R.id.reloading:
                 initData();
+                break;
+            case R.id.drugdetail_price:
+                Intent intent = new Intent(this, BuyDrugWebActivity.class);
+                intent.putExtra("drug", drug);
+                intent.putExtra("weburl", webUrl);
+                startActivity(intent);
                 break;
         }
     }

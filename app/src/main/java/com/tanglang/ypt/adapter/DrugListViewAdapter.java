@@ -70,17 +70,13 @@ public class DrugListViewAdapter extends BaseAdapter {
         if (!TextUtils.isEmpty(leftDrug.namecn)) {
             viewHolder.tvLeftText.setText(leftDrug.namecn);
         }
-        if (!TextUtils.isEmpty(leftDrug.avgprice)) {
-            viewHolder.tvLeftPrice.setText("￥" + leftDrug.avgprice);
-        }
+        viewHolder.tvLeftPrice.setText("￥" + leftDrug.avgprice);
 
         bitmapUtils.display(viewHolder.ivRightImage, rightDrug.titleimg);
         if (!TextUtils.isEmpty(leftDrug.namecn)) {
             viewHolder.tvRightText.setText(rightDrug.namecn);
         }
-        if (!TextUtils.isEmpty(leftDrug.avgprice)) {
-            viewHolder.tvRightPrice.setText("￥" + rightDrug.avgprice);
-        }
+        viewHolder.tvRightPrice.setText("￥" + rightDrug.avgprice);
 
         addOtherView(viewHolder.llLeftOther, leftDrug);
         addOtherView(viewHolder.llRightOther, rightDrug);
@@ -89,18 +85,18 @@ public class DrugListViewAdapter extends BaseAdapter {
 
     private void addOtherView(LinearLayout ll, Drug drug) {
         ll.removeAllViews();
-        if (drug.newotc.equals("1")) {
+        if (drug.newotc == 1) {
             ll.addView(createImageView(R.mipmap.ic_my_otc));
-        } else if (drug.newotc.equals("2")) {
+        } else if (drug.newotc == 2) {
             ll.addView(createImageView(R.mipmap.ic_my_otc2));
-        } else if (drug.newotc.equals("3")) {
+        } else if (drug.newotc == 3) {
             ll.addView(createImageView(R.mipmap.ic_my_rx));
         }
 
-        if (drug.basemed.equals("1")) {
+        if (drug.basemed) {
             ll.addView(createImageView(R.mipmap.ic_my_base));
         }
-        if (drug.medcare.equals("1")) {
+        if (drug.medcare > 0) {
             ll.addView(createImageView(R.mipmap.ic_my_csl));
         }
     }

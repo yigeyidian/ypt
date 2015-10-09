@@ -10,6 +10,7 @@ import android.widget.SearchView;
 
 import com.tanglang.ypt.R;
 import com.tanglang.ypt.activity.ScanActivity;
+import com.tanglang.ypt.activity.SearchActivity;
 
 public class TopSearchView extends LinearLayout {
 
@@ -36,11 +37,20 @@ public class TopSearchView extends LinearLayout {
         //addView(view);
         Button btMenu = (Button) view.findViewById(R.id.topsearch_bt_menu);
         Button btScan = (Button) view.findViewById(R.id.topsearch_bt_scan);
+        LinearLayout llInput = (LinearLayout) view.findViewById(R.id.input);
 
         btScan.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), ScanActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
+
+        llInput.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SearchActivity.class);
                 getContext().startActivity(intent);
             }
         });

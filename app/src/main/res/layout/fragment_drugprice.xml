@@ -2,11 +2,109 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backColor"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="hehe"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/drugprice_bt_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/ic_online_price_line" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="网上报价"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="20dp"
+                    android:src="@mipmap/ic_arrow_up" />
+            </LinearLayout>
+
+            <TextView style="@style/SpaceLineStyle" />
+
+            <GridLayout
+                android:id="@+id/drugprice_types"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:columnCount="2"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp" />
+
+            <TextView style="@style/SpaceLineStyle" />
+
+            <ListView
+                android:id="@+id/drugprice_pricelist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:divider="@color/spacingColor"
+                android:dividerHeight="1sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@mipmap/ic_same_drug_line" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="同类药品"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <TextView style="@style/SpaceLineStyle" />
+
+            <com.tanglang.ypt.view.HomeGridView
+                android:id="@+id/drugprice_samedrug"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:horizontalSpacing="1sp"
+                android:numColumns="3" />
+
+            <TextView style="@style/SpaceLineStyle" />
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

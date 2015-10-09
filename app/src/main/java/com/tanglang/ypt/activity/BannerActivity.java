@@ -109,12 +109,6 @@ public class BannerActivity extends BaseActivity implements View.OnClickListener
         changeView(loadingFailView);
     }
 
-
-    /**
-     * 改变布局
-     *
-     * @param view
-     */
     private void changeView(View view) {
         mFrameLayout.removeAllViews();
         mFrameLayout.addView(view);
@@ -190,13 +184,13 @@ public class BannerActivity extends BaseActivity implements View.OnClickListener
             for(int i=0; i<drugJsons.length(); i++){
                 JSONObject drugJson = drugJsons.optJSONObject(i);
                 Drug drug = new Drug();
-                drug._id = drugJson.optString("id");
+                drug._id = drugJson.optInt("id");
                 drug.aliascn = drugJson.optString("AliasCN");
-                drug.avgprice = drugJson.optString("AvgPrice");
-                drug.basemed = drugJson.optString("BaseMed");
-                drug.medcare = drugJson.optString("MedCare");
+                drug.avgprice = drugJson.optDouble("AvgPrice");
+                drug.basemed = drugJson.optBoolean("BaseMed");
+                drug.medcare = drugJson.optInt("MedCare");
                 drug.namecn = drugJson.optString("NameCN");
-                drug.newotc = drugJson.optString("NewOTC");
+                drug.newotc = drugJson.optInt("NewOTC");
                 drug.titleimg = drugJson.optString("TitleImg");
                 drugList.add(drug);
             }

@@ -3,6 +3,7 @@ package com.tanglang.ypt;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.util.DisplayMetrics;
 
 
 import com.tanglang.ypt.bean.User;
@@ -15,6 +16,7 @@ public class YPTApplication extends Application {
 
     private List<Activity> activities;
     private User mUser;
+
 
     @Override
     public void onCreate() {
@@ -54,4 +56,6 @@ public class YPTApplication extends Application {
     public User getUser() {
         return mUser;
     }
+
+
 }

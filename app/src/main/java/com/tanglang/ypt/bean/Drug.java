@@ -6,17 +6,17 @@ import java.io.Serializable;
  * Author： Administrator
  */
 public class Drug implements Serializable {
-    public String _id;
+    public int _id;
     public String aliascn;
-    public String avgprice;
-    public String basemed;
-    public String medcare;
+    public double avgprice;
+    public boolean basemed;
+    public int medcare;
     public String namecn;
-    public String newotc;
+    public int newotc;
     public String titleimg;
     public String gongneng;
     public String listimg;
     public String refdrugbrandname;
     public String refdrugcompanyname;
-    public String score;
+    public double score;
 }

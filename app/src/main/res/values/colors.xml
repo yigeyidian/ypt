@@ -6,5 +6,7 @@
     <color name="header_normal">#ffeeeeee</color>
     <color name="header_pressed">#ffcccccc</color>
     <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="backColor">#eeeeee</color>
 
 </resources>

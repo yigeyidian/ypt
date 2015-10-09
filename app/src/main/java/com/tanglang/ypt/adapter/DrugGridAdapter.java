@@ -64,23 +64,25 @@ public class DrugGridAdapter extends BaseAdapter {
         if (!TextUtils.isEmpty(drug.namecn)) {
             viewHolder.tvText.setText(drug.namecn);
         }
-        if (!TextUtils.isEmpty(drug.avgprice)) {
+        if (drug.avgprice == 0) {
+            viewHolder.tvPrice.setText("暂无报价");
+        } else {
             viewHolder.tvPrice.setText("￥" + drug.avgprice);
         }
 
         viewHolder.llOther.removeAllViews();
-        if (drug.newotc.equals("1")) {
+        if (drug.newotc == 1) {
             viewHolder.llOther.addView(createImageView(R.mipmap.ic_my_otc));
-        } else if (drug.newotc.equals("2")) {
+        } else if (drug.newotc == 2) {
             viewHolder.llOther.addView(createImageView(R.mipmap.ic_my_otc2));
-        } else if (drug.newotc.equals("3")) {
+        } else if (drug.newotc == 3) {
             viewHolder.llOther.addView(createImageView(R.mipmap.ic_my_rx));
         }
 
-        if (drug.basemed.equals("1")) {
+        if (drug.basemed) {
             viewHolder.llOther.addView(createImageView(R.mipmap.ic_my_base));
         }
-        if (drug.medcare.equals("1")) {
+        if (drug.medcare > 0) {
             viewHolder.llOther.addView(createImageView(R.mipmap.ic_my_csl));
         }
         return convertView;
